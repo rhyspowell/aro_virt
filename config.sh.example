@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Shared configuration for build.sh and netapp.sh
+# Source this file: source "$(dirname "${BASH_SOURCE[0]}")/config.sh"
+
+# Azure / ARO cluster
+RESOURCEGROUP=""
+CLUSTER=""  # set to your ARO cluster name
+LOCATION="uksouth"
+SUBSCRIPTION_ID=""
+TENANT_ID=""
+
+# Networking
+VNET_NAME=""
+SUBNET_NAME=""
+SUBNET_PREFIX=""
+
+# Azure NetApp Files
+ANF_ACCOUNT_NAME="netappfiles"
+POOL_NAME="Standard"
+POOL_SIZE_TiB=4
+SERVICE_LEVEL="Standard"
