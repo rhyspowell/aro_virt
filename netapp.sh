@@ -30,7 +30,9 @@ az netappfiles pool create \
   --account-name "$ANF_ACCOUNT_NAME" \
   --pool-name "$POOL_NAME" \
   --size "$POOL_SIZE_TiB" \
-  --service-level "$SERVICE_LEVEL"
+  --service-level "$SERVICE_LEVEL" \
+  --custom-throughput "$CUSTOM_THROUGHPUT" \
+  --qos-type "$QOS_TYPE"
 echo "    NetApp pool created."
 
 echo "==> [netapp] Ensuring NetApp-delegated subnet ${SUBNET_NAME} on ${VNET_NAME}..."
@@ -202,6 +204,11 @@ reclaimPolicy: Delete
 allowVolumeExpansion: true
 EOF
 echo "    StorageClass applied."
+
+# Need to patch the storage profile for RWX and volumemode
+echo "==> [netapp] Patching storage profile for RWX and volumemode..."
+oc patch storageprofile anf-flex --type='json' -p='[{"op": "replace", "path": "/spec/claimPropertySets", "value": [{"accessModes": ["ReadWriteMany"], "volumeMode": "Filesystem"}]}]'
+echo "    Storage profile patched."
 
 # create test pvc
 echo "==> [netapp] Creating test PVC anf-test-pvc..."
