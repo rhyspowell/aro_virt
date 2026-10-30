@@ -1,3 +1,8 @@
-WIP - very much wip, use at your own risk
+To install and configure virt on ARO, make sure you are logged into your cluster and then run
 
-Setting out a few quick bash scripts to enable ARO Virt using netapp as the backend
+```bash
+./build.sh
+```
+
+
+Once thats all done, if you want to do somethings, you can just follow the [demo](demo.md) document, that will give you a quick over view of how things work and what you can do
